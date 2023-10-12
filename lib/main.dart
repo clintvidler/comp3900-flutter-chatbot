@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 
 import 'typing.dart';
@@ -87,6 +84,15 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     _clearHistory();
@@ -115,19 +121,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                itemCount: 3,
-                reverse: true,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 100),
-                    child: FakeMessage(isBig: index.isOdd),
-                  );
-                },
-              ),
-            ),
             Align(
               alignment: Alignment.bottomLeft,
               child: TypingIndicator(
@@ -136,9 +129,19 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             for (var msg in _history) MsgLine(msg: msg),
             for (var sug in _suggestions) SuggestionLine(suggestion: sug),
-            const Padding(
-              padding: EdgeInsets.only(top: 30, bottom: 0),
+            const SizedBox(
+              width: 15,
             ),
+            Expanded(
+              child: MyMessage(myController: myController),
+            ),
+            const SizedBox(
+              width: 15,
+            ),
+
+            // const Padding(
+            //   padding: EdgeInsets.only(top: 30, bottom: 0),
+            // ),
           ],
         ),
       ),
@@ -148,6 +151,35 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.undo),
       ),
     );
+  }
+}
+
+class MyMessage extends StatelessWidget {
+  const MyMessage({
+    super.key,
+    required this.myController,
+  });
+
+  final TextEditingController myController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+        controller: myController,
+        textInputAction: TextInputAction.search,
+        onSubmitted: (value) {
+          print(myController.text);
+        },
+        decoration: InputDecoration(
+          hintText: "Write message...",
+          hintStyle: const TextStyle(color: Colors.black54),
+          suffixIcon: IconButton(
+            icon: const Icon(Icons.send),
+            onPressed: () {
+              print(myController.text);
+            },
+          ),
+        ));
   }
 }
 
