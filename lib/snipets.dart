@@ -13,3 +13,40 @@
 //     },
 //   ),
 // ),
+
+// A button
+
+// ElevatedButton(
+//   style: const ButtonStyle(
+//     backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
+//   ),
+//   child: const Text('Let me play among the stars'),
+//   onPressed: () {
+//     _listNotifier.add(MsgType(false, "Testing..."));
+//   },
+// ),
+
+// To toggle and show typing indicator
+
+            // Container(
+            //   color: Colors.grey,
+            //   padding: const EdgeInsets.all(16),
+            //   child: Center(
+            //     child: CupertinoSwitch(
+            //       onChanged: (newValue) {
+            //         setState(() {
+            //           _isSomeoneTyping = newValue;
+            //         });
+            //       },
+            //       value: _isSomeoneTyping,
+            //     ),
+            //   ),
+            // ),
+            // Align(
+            //   alignment: Alignment.bottomLeft,
+            //   child: TypingIndicator(
+            //     showIndicator: _isSomeoneTyping,
+            //   ),
+            // ),
+
+            
