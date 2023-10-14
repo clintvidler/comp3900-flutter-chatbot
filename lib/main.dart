@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     Expanded(
                       child: Padding(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           child: TextField(
                               controller: myController,
                               textInputAction: TextInputAction.search,
@@ -159,10 +159,8 @@ class ListBody extends StatelessWidget {
           final List<Message> values = listNotifier.values; // copy the list
 
           return ListView.builder(
-            itemBuilder: (BuildContext context, int index) => ListTile(
-              // title: MsgLine(msg: values[index]),
-              title: values[index].widget(),
-            ),
+            itemBuilder: (BuildContext context, int index) =>
+                values[index].widget(),
             itemCount: values.length,
           );
 

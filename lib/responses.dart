@@ -15,20 +15,23 @@ List<Message> botResponse(String text) {
   }
 
   // I am considering a change to my academic plans.
-  else if (text.toLowerCase().contains("change my plans")) {
+  else if (text.toLowerCase().contains("change plans") ||
+      text.toLowerCase().contains("change my plans")) {
     res.add(ServerMessage(
         text: "Which part of your plans are you considering changing?"));
     res.add(ServerMessage(text: "I can help plan your program or major."));
   }
 
   // I am considering a change to program.
-  else if (text.toLowerCase().contains("change program")) {
+  else if (text.toLowerCase().contains("change program") ||
+      text.toLowerCase().contains("change my program")) {
     res.add(ServerMessage(
         text: "Which program are you interested in changing to?"));
   }
 
   // I am considering a change to major.
-  else if (text.toLowerCase().contains("change major")) {
+  else if (text.toLowerCase().contains("change major") ||
+      text.toLowerCase().contains("change my major")) {
     res.add(ServerMessage(
         text:
             "Based on your academic history, you already have credits toward the following majors:"));
@@ -57,7 +60,7 @@ List<Message> botResponse(String text) {
   // Help
   else if (text.toLowerCase().contains("help")) {
     res.add(ServerMessage(text: "I can help with (keywords): "));
-    res.add(ServerMessage(text: " - academic plans"));
+    res.add(ServerMessage(text: " - change plans"));
     res.add(ServerMessage(text: " - change program"));
     res.add(ServerMessage(text: " - change major"));
     res.add(ServerMessage(text: " - this semester"));
