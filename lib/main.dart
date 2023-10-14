@@ -76,8 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               controller: myController,
                               textInputAction: TextInputAction.search,
                               onSubmitted: (value) {
-                                _listNotifier
-                                    .add(MsgType(false, myController.text));
+                                _listNotifier.add(
+                                    ClientMessage(text: myController.text));
                                 for (var res in botResponse(myController.text))
                                   _listNotifier.add(res);
                               },
@@ -88,8 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 suffixIcon: IconButton(
                                   icon: const Icon(Icons.send),
                                   onPressed: () {
-                                    _listNotifier
-                                        .add(MsgType(false, myController.text));
+                                    _listNotifier.add(
+                                        ClientMessage(text: myController.text));
                                     for (var res
                                         in botResponse(myController.text))
                                       _listNotifier.add(res);
@@ -119,17 +119,18 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class ListModel with ChangeNotifier {
-  final List<MsgType> _values = <MsgType>[
-    MsgType(true, "Hi, Student"),
-    MsgType(true, "I have pulled up your academic history."),
-    MsgType(true,
-        "I can see that you’re enrolled in 'Bachelor of Advanced Computing (Honours)', and that you haven't specified any plans to major."),
-    MsgType(true, "How can I help you today?"),
+  final List<Message> _values = <Message>[
+    ServerMessage(text: "Hi, Student"),
+    ServerMessage(text: "I have pulled up your academic history."),
+    ServerMessage(
+        text:
+            "I can see that you’re enrolled in 'Bachelor of Advanced Computing (Honours)', and that you haven't specified any plans to major."),
+    ServerMessage(text: "How can I help you today?"),
   ];
 
-  List<MsgType> get values => _values.toList();
+  List<Message> get values => _values.toList();
 
-  void add(MsgType value) {
+  void add(Message value) {
     _values.add(value);
 
     notifyListeners();
@@ -155,11 +156,12 @@ class ListBody extends StatelessWidget {
         builder: (BuildContext context, Widget? child) {
           // We rebuild the ListView each time the list changes,
           // so that the framework knows to update the rendering.
-          final List<MsgType> values = listNotifier.values; // copy the list
+          final List<Message> values = listNotifier.values; // copy the list
 
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) => ListTile(
-              title: MsgLine(msg: values[index]),
+              // title: MsgLine(msg: values[index]),
+              title: values[index].widget(),
             ),
             itemCount: values.length,
           );

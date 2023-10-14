@@ -1,40 +1,64 @@
 import 'package:flutter/material.dart';
 
-class MsgType {
-  bool bot;
+class Message {
   String text;
-  MsgType(this.bot, this.text);
+
+  Message(this.text);
+
+  Widget widget() {
+    return Text(text);
+  }
 }
 
-class MsgLine extends StatelessWidget {
-  const MsgLine({
-    super.key,
-    required this.msg,
-  });
-
-  final MsgType msg;
+class ServerMessage extends Message {
+  ServerMessage({required text}) : super(text);
 
   @override
-  Widget build(BuildContext context) {
+  Widget widget() {
     return Padding(
-      padding: EdgeInsets.only(
-          top: 1,
-          bottom: 1,
-          left: msg.bot ? 15.0 : 75.0,
-          right: msg.bot ? 75.0 : 15.0),
+      padding:
+          const EdgeInsets.only(top: 1, bottom: 1, left: 15.0, right: 75.0),
       child: Align(
-        alignment: msg.bot ? Alignment.topLeft : Alignment.topRight,
+        alignment: Alignment.topLeft,
         child: DecoratedBox(
             decoration: BoxDecoration(
-              color: msg.bot ? Colors.grey[300] : Colors.blue[300],
+              color: Colors.grey[300],
               borderRadius: BorderRadius.circular(15),
             ),
             child: Padding(
               padding: const EdgeInsets.only(
                   top: 4, bottom: 4, left: 10.0, right: 10),
               child: Text(
-                msg.text,
-                style: Theme.of(context).textTheme.bodyLarge,
+                text,
+                // style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            )),
+      ),
+    );
+  }
+}
+
+class ClientMessage extends Message {
+  ClientMessage({required text}) : super(text);
+
+  @override
+  Widget widget() {
+    return Padding(
+      padding:
+          const EdgeInsets.only(top: 1, bottom: 1, left: 75.0, right: 15.0),
+      child: Align(
+        alignment: Alignment.topRight,
+        child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: Colors.blue[300],
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 4, bottom: 4, left: 10.0, right: 10),
+              child: Text(
+                text,
+                // style: Theme.of(context).textTheme.bodyLarge,
               ),
             )),
       ),
