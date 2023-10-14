@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 import 'responses.dart';
 import 'message.dart';
@@ -91,8 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     _listNotifier.add(
                                         ClientMessage(text: myController.text));
                                     for (var res
-                                        in botResponse(myController.text))
+                                        in botResponse(myController.text)) {
                                       _listNotifier.add(res);
+                                    }
                                   },
                                 ),
                               ))),
@@ -150,6 +152,16 @@ class ListBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
+    void scrollDown() {
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.fastOutSlowIn,
+      );
+    }
+
     return Expanded(
       child: ListenableBuilder(
         listenable: listNotifier,
@@ -159,9 +171,13 @@ class ListBody extends StatelessWidget {
           final List<Message> values = listNotifier.values; // copy the list
 
           return ListView.builder(
-            itemBuilder: (BuildContext context, int index) =>
-                values[index].widget(),
+            itemBuilder: (BuildContext context, int index) {
+              WidgetsBinding.instance.addPostFrameCallback((_) => scrollDown());
+
+              return values[index].widget();
+            },
             itemCount: values.length,
+            controller: scrollController,
           );
 
           // MsgLine(msg: values[index])
