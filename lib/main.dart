@@ -68,9 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   }
                   setState(() {
                   _showLoadButton = false; 
+
                 });
                 },
-                child: Text("Load Saved Messages"),               
+                child: Text("Load Saved Messages."),               
               ),
             ListBody(listNotifier: _listNotifier),
 

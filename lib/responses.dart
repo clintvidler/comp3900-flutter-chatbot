@@ -18,7 +18,7 @@ List<Message> botResponse(String text) {
   else if (text.toLowerCase().contains("credit") ||
       text.toLowerCase().contains("check my credits")) {
     res.add(ServerMessage(
-        text: "I just checked that you finished courses worth <number> credits"));
+        text: "I just checked that you finished courses worth <number> credits."));
     res.add(ServerMessage(text: "I can help you make further dicisions."));
   }
 
