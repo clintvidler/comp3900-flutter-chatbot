@@ -37,6 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
   final ListModel _listNotifier = ListModel();
 
   final myController = TextEditingController();
+  
+  List<Message> _savedMessages = [];
+  bool _showLoadButton = false;
 
   @override
   void dispose() {
@@ -57,7 +60,62 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
+            if (_showLoadButton)
+                ElevatedButton(
+                onPressed: () {
+                  for (var message in _savedMessages) {
+                  _listNotifier.add(message);
+                  }
+                  setState(() {
+                  _showLoadButton = false; 
+                });
+                },
+                child: Text("Load Saved Messages"),               
+              ),
             ListBody(listNotifier: _listNotifier),
+
+
+            Align(
+              alignment: Alignment.bottomCenter, 
+              child:Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+  
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                  ElevatedButton(
+                    onPressed: () {
+                    final presetMessage = "I want to change my major";
+                    _listNotifier.add(ClientMessage(text: presetMessage));
+                    for (var res in botResponse(presetMessage)) {
+                    _listNotifier.add(res);
+                    }
+                    },
+                    child: Text("I want to change my major"),
+                  ),
+                  SizedBox(width: 10), 
+                  ElevatedButton(
+                    onPressed: () {
+                    final presetMessage = "I want to check my credit";
+                    _listNotifier.add(ClientMessage(text: presetMessage));
+                    for (var res in botResponse(presetMessage)) {
+                      _listNotifier.add(res);
+                    }
+                  },
+                  child: Text("I want to check my credit"),
+                ),
+              ],
+            ),
+            SizedBox(height: 10), 
+          
+            ],
+          ),
+        ),
+
+
+          
+            
             const SizedBox(
               width: 15,
             ),
@@ -109,14 +167,19 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      
+
+      floatingActionButton: FloatingActionButton( 
         onPressed: () {
-          _listNotifier.clear();
-        },
+        _savedMessages = List.from(_listNotifier.values); 
+        _listNotifier.clear();
+        setState(() {
+          _showLoadButton = true; 
+        });
+     },
         tooltip: 'Start again',
         child: Icon(Icons.undo),
-      ),
-    );
+    ));
   }
 }
 
