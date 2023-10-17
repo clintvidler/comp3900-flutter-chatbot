@@ -18,7 +18,8 @@ List<Message> botResponse(String text) {
   else if (text.toLowerCase().contains("credit") ||
       text.toLowerCase().contains("check my credits")) {
     res.add(ServerMessage(
-        text: "I just checked that you finished courses worth <number> credits."));
+        text:
+            "I just checked that you finished courses worth <number> credits."));
     res.add(ServerMessage(text: "I can help you make further dicisions."));
   }
 
@@ -57,7 +58,7 @@ List<Message> botResponse(String text) {
             " - COMP3120 - This course is a prerequisite for COMP4130, which is a requirement of your planned major in ‘Software Development’. Both of these courses are only offered in the first semester of a given year so if you leave it too late you may find yourself having to delay graduation or forgo this major."));
     res.add(ServerMessage(
         text:
-            " - SOMECOURSE, SOMEOTHERCOURSE - These courses don’t have any prerequisites (or you meet them), and they all have very high SELT scores. If any of them interest you, you’ll be likely to have a good time there."));
+            " - PHIL2042, BIOL1003 - These courses don’t have any prerequisites (or you meet them), and they all have very high SELT scores. If any of them interest you, you’ll be likely to have a good time there."));
   }
 
   // Placeholder
@@ -79,6 +80,7 @@ List<Message> botResponse(String text) {
     res.add(ServerMessage(
         text:
             "I don't know how to respond to that, I'll pass your message along to my creator!"));
+    res.add(ServerMessage(text: "Type 'help' to see what I can help with."));
   }
 
   return res;
